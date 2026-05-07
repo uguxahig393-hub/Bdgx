@@ -3,18 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gaming Dashboard</title>
+<title>Gaming App</title>
 
 <style>
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial;
-}
-
 body{
+margin:0;
+font-family:Arial;
 background:#0f0f0f;
 color:white;
 }
@@ -24,15 +19,15 @@ background:#1a1a1a;
 padding:15px;
 text-align:center;
 font-size:22px;
-font-weight:bold;
 }
 
 .container{
 padding:15px;
+padding-bottom:80px;
 }
 
 .balance-card{
-background:#222;
+background:#1f1f1f;
 border-radius:12px;
 padding:20px;
 text-align:center;
@@ -40,23 +35,21 @@ margin-bottom:20px;
 }
 
 .balance{
-font-size:26px;
-margin-top:10px;
+font-size:28px;
+margin:10px 0;
 }
 
 .actions{
 display:flex;
 gap:10px;
-margin-top:15px;
 }
 
-.actions button{
+button{
 flex:1;
 padding:12px;
 border:none;
-border-radius:8px;
+border-radius:10px;
 font-weight:bold;
-cursor:pointer;
 }
 
 .deposit{
@@ -72,21 +65,15 @@ color:white;
 .games{
 display:grid;
 grid-template-columns:repeat(3,1fr);
-gap:12px;
+gap:10px;
+margin-top:15px;
 }
 
 .game-card{
 background:#1f1f1f;
-padding:20px;
+padding:18px;
 border-radius:10px;
 text-align:center;
-cursor:pointer;
-transition:0.2s;
-}
-
-.game-card:hover{
-transform:scale(1.05);
-background:#2a2a2a;
 }
 
 .bonus{
@@ -97,13 +84,10 @@ border-radius:10px;
 }
 
 .bonus button{
-margin-top:10px;
-padding:10px;
-border:none;
-border-radius:8px;
+width:100%;
 background:#ff8c00;
 color:white;
-width:100%;
+margin-top:10px;
 }
 
 .footer{
@@ -113,12 +97,64 @@ width:100%;
 background:#1a1a1a;
 display:flex;
 justify-content:space-around;
-padding:12px;
+padding:10px 0;
 }
 
-.footer div{
-text-align:center;
+.footer button{
+background:none;
+border:none;
+color:white;
 font-size:14px;
+display:flex;
+flex-direction:column;
+align-items:center;
+}
+
+.footer button.active{
+color:#ff8c00;
+}
+
+/* Deposit Popup */
+
+.popup{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.8);
+justify-content:center;
+align-items:center;
+}
+
+.popup-box{
+background:#1f1f1f;
+padding:20px;
+border-radius:10px;
+width:90%;
+max-width:350px;
+text-align:center;
+}
+
+.popup img{
+width:180px;
+margin:10px 0;
+}
+
+.popup input{
+width:100%;
+padding:10px;
+margin-top:10px;
+border:none;
+border-radius:8px;
+}
+
+.popup button{
+margin-top:10px;
+background:#ff8c00;
+color:white;
+width:100%;
 }
 
 </style>
@@ -126,71 +162,94 @@ font-size:14px;
 
 <body>
 
-<div class="header">
-Gaming App
-</div>
+<div class="header">Gaming App</div>
 
 <div class="container">
 
 <div class="balance-card">
 <div>Wallet Balance</div>
-<div class="balance">₹ <span id="balance">0</span></div>
+<div class="balance">₹ <span id="balance">150</span></div>
 
 <div class="actions">
-<button class="deposit" onclick="deposit()">Deposit</button>
-<button class="withdraw" onclick="withdraw()">Withdraw</button>
+<button class="deposit" onclick="openDeposit()">Deposit</button>
+<button class="withdraw">Withdraw</button>
 </div>
 </div>
 
 <div class="games">
-
 <div class="game-card">Lottery</div>
 <div class="game-card">Slots</div>
 <div class="game-card">Sports</div>
 <div class="game-card">Live Casino</div>
 <div class="game-card">Crash</div>
 <div class="game-card">Color Game</div>
-
 </div>
 
 <div class="bonus">
-Daily Bonus  
-<button onclick="claimBonus()">Claim Reward</button>
+Daily Bonus
+<button>Claim Reward</button>
 </div>
 
 </div>
+
+<!-- Deposit Popup -->
+
+<div class="popup" id="depositPopup">
+<div class="popup-box">
+
+<h3>Deposit</h3>
+
+<img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay?pa=randomupi@upi">
+
+<p>UPI ID</p>
+<b>randomupi@upi</b>
+
+<input type="number" placeholder="Enter Amount">
+
+<button onclick="submitDeposit()">Submit</button>
+<button onclick="closeDeposit()" style="background:#444;">Close</button>
+
+</div>
+</div>
+
+<!-- Bottom Menu -->
 
 <div class="footer">
-<div>Home</div>
-<div>Promotion</div>
-<div>Wallet</div>
-<div>Account</div>
+
+<button class="active">
+🏠
+<span>Home</span>
+</button>
+
+<button>
+🎁
+<span>Promotion</span>
+</button>
+
+<button>
+💰
+<span>Wallet</span>
+</button>
+
+<button>
+👤
+<span>Account</span>
+</button>
+
 </div>
 
 <script>
 
-let balance = 0
-
-function deposit(){
-balance += 100
-document.getElementById("balance").innerText = balance
-alert("₹100 Added")
+function openDeposit(){
+document.getElementById("depositPopup").style.display="flex"
 }
 
-function withdraw(){
-if(balance >= 100){
-balance -= 100
-document.getElementById("balance").innerText = balance
-alert("₹100 Withdrawn")
-}else{
-alert("Insufficient Balance")
-}
+function closeDeposit(){
+document.getElementById("depositPopup").style.display="none"
 }
 
-function claimBonus(){
-balance += 50
-document.getElementById("balance").innerText = balance
-alert("Daily Bonus ₹50 Added")
+function submitDeposit(){
+alert("Payment Submitted (Demo)")
 }
 
 </script>
