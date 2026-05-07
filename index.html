@@ -3,70 +3,122 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Game Dashboard</title>
+<title>Gaming Dashboard</title>
 
 <style>
 
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial;
+}
+
 body{
-    margin:0;
-    font-family:Arial;
-    background:#0f0f0f;
-    color:white;
+background:#0f0f0f;
+color:white;
 }
 
 .header{
-    background:#1c1c1c;
-    padding:15px;
-    text-align:center;
-    font-size:22px;
-    font-weight:bold;
+background:#1a1a1a;
+padding:15px;
+text-align:center;
+font-size:22px;
+font-weight:bold;
+}
+
+.container{
+padding:15px;
+}
+
+.balance-card{
+background:#222;
+border-radius:12px;
+padding:20px;
+text-align:center;
+margin-bottom:20px;
 }
 
 .balance{
-    background:#222;
-    margin:15px;
-    padding:15px;
-    border-radius:10px;
-    text-align:center;
+font-size:26px;
+margin-top:10px;
 }
 
-.buttons{
-    display:flex;
-    justify-content:space-around;
-    margin-top:10px;
+.actions{
+display:flex;
+gap:10px;
+margin-top:15px;
 }
 
-button{
-    padding:10px 20px;
-    border:none;
-    border-radius:8px;
-    background:#ff7a00;
-    color:white;
-    font-weight:bold;
+.actions button{
+flex:1;
+padding:12px;
+border:none;
+border-radius:8px;
+font-weight:bold;
+cursor:pointer;
 }
 
-.grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:10px;
-    padding:15px;
+.deposit{
+background:#ff8c00;
+color:white;
 }
 
-.card{
-    background:#1f1f1f;
-    padding:20px;
-    border-radius:10px;
-    text-align:center;
+.withdraw{
+background:#444;
+color:white;
+}
+
+.games{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:12px;
+}
+
+.game-card{
+background:#1f1f1f;
+padding:20px;
+border-radius:10px;
+text-align:center;
+cursor:pointer;
+transition:0.2s;
+}
+
+.game-card:hover{
+transform:scale(1.05);
+background:#2a2a2a;
+}
+
+.bonus{
+margin-top:20px;
+background:#1f1f1f;
+padding:15px;
+border-radius:10px;
+}
+
+.bonus button{
+margin-top:10px;
+padding:10px;
+border:none;
+border-radius:8px;
+background:#ff8c00;
+color:white;
+width:100%;
 }
 
 .footer{
-    position:fixed;
-    bottom:0;
-    width:100%;
-    background:#1c1c1c;
-    display:flex;
-    justify-content:space-around;
-    padding:10px;
+position:fixed;
+bottom:0;
+width:100%;
+background:#1a1a1a;
+display:flex;
+justify-content:space-around;
+padding:12px;
+}
+
+.footer div{
+text-align:center;
+font-size:14px;
 }
 
 </style>
@@ -75,35 +127,73 @@ button{
 <body>
 
 <div class="header">
-GAME APP
+Gaming App
 </div>
 
-<div class="balance">
-<h3>Balance: ₹0.00</h3>
+<div class="container">
 
-<div class="buttons">
-<button>Deposit</button>
-<button>Withdraw</button>
+<div class="balance-card">
+<div>Wallet Balance</div>
+<div class="balance">₹ <span id="balance">0</span></div>
+
+<div class="actions">
+<button class="deposit" onclick="deposit()">Deposit</button>
+<button class="withdraw" onclick="withdraw()">Withdraw</button>
 </div>
 </div>
 
-<div class="grid">
+<div class="games">
 
-<div class="card">Lottery</div>
-<div class="card">Slots</div>
-<div class="card">Sports</div>
-<div class="card">Live</div>
-<div class="card">Casino</div>
-<div class="card">Bonus</div>
+<div class="game-card">Lottery</div>
+<div class="game-card">Slots</div>
+<div class="game-card">Sports</div>
+<div class="game-card">Live Casino</div>
+<div class="game-card">Crash</div>
+<div class="game-card">Color Game</div>
+
+</div>
+
+<div class="bonus">
+Daily Bonus  
+<button onclick="claimBonus()">Claim Reward</button>
+</div>
 
 </div>
 
 <div class="footer">
-<span>Home</span>
-<span>Promotion</span>
-<span>Wallet</span>
-<span>Account</span>
+<div>Home</div>
+<div>Promotion</div>
+<div>Wallet</div>
+<div>Account</div>
 </div>
 
+<script>
+
+let balance = 0
+
+function deposit(){
+balance += 100
+document.getElementById("balance").innerText = balance
+alert("₹100 Added")
+}
+
+function withdraw(){
+if(balance >= 100){
+balance -= 100
+document.getElementById("balance").innerText = balance
+alert("₹100 Withdrawn")
+}else{
+alert("Insufficient Balance")
+}
+}
+
+function claimBonus(){
+balance += 50
+document.getElementById("balance").innerText = balance
+alert("Daily Bonus ₹50 Added")
+}
+
+</script>
+
 </body>
-  </html>
+</html>
