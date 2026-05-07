@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Game Dashboard</title>
+
+<style>
+
+body{
+    margin:0;
+    font-family:Arial;
+    background:#0f0f0f;
+    color:white;
+}
+
+.header{
+    background:#1c1c1c;
+    padding:15px;
+    text-align:center;
+    font-size:22px;
+    font-weight:bold;
+}
+
+.balance{
+    background:#222;
+    margin:15px;
+    padding:15px;
+    border-radius:10px;
+    text-align:center;
+}
+
+.buttons{
+    display:flex;
+    justify-content:space-around;
+    margin-top:10px;
+}
+
+button{
+    padding:10px 20px;
+    border:none;
+    border-radius:8px;
+    background:#ff7a00;
+    color:white;
+    font-weight:bold;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+    padding:15px;
+}
+
+.card{
+    background:#1f1f1f;
+    padding:20px;
+    border-radius:10px;
+    text-align:center;
+}
+
+.footer{
+    position:fixed;
+    bottom:0;
+    width:100%;
+    background:#1c1c1c;
+    display:flex;
+    justify-content:space-around;
+    padding:10px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="header">
+GAME APP
+</div>
+
+<div class="balance">
+<h3>Balance: ₹0.00</h3>
+
+<div class="buttons">
+<button>Deposit</button>
+<button>Withdraw</button>
+</div>
+</div>
+
+<div class="grid">
+
+<div class="card">Lottery</div>
+<div class="card">Slots</div>
+<div class="card">Sports</div>
+<div class="card">Live</div>
+<div class="card">Casino</div>
+<div class="card">Bonus</div>
+
+</div>
+
+<div class="footer">
+<span>Home</span>
+<span>Promotion</span>
+<span>Wallet</span>
+<span>Account</span>
+</div>
+
+</body>
+  </html>
